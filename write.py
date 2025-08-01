@@ -1,3 +1,7 @@
+##################################
+# LCD Write to Screen (template) #
+##################################
+
 from time import sleep
 import sys
 from SimpleMFRC522 import SimpleMFRC522
