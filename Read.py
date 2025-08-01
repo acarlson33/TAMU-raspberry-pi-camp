@@ -44,6 +44,19 @@ def updateVowelCounterWord(val, amt):
             else:
                 tm.number(amt)
 
+def writeToCard():
+    LCD.clear()
+    LCD.write(0,0, "What do you-")
+    LCD.write(1,1, "want to write?")
+    userInput = input("")
+    LCD.clear()
+    LCD.write(0,0, "Hold to reader")
+    reader.write(userInput)
+    LCD.clear()
+    LCD.write(0,0, "Data written")
+    sleep(2)
+    
+
 # Infinite Loop, to print text value of an RFID compatible device, and count the vowels
 try:
     print("Check LCD screen for output")
@@ -52,7 +65,6 @@ try:
         LCD.write(0,0, "hold card to-")
         LCD.write(1,1, "reader") 
         id, text = reader.read()
-        print(text, len(text))
         LCD.clear()
         if vowelOrConsonant(text):
             LCD.write(2, 0, "Contains vowel")
@@ -60,43 +72,49 @@ try:
             LCD.clear()
             val = text
             valEnd = re.search("\S(?=\s*$)",text)
-            print(valEnd.end())
             newVal = val[:valEnd.end()+1]
-            print(newVal)
             dis = len(newVal) -1
-            print(dis)
-            if dis > 32:
+            if dis > 30:
                 # Write and clear the screen after displaying new character to imitate scrolling effect
                 for i in range(0, dis):
                     LCD.write(0, 0, newVal[i:16+i])
                     if vowelOrConsonant(newVal[i]):
                          amt = amt + 1
                          tm.write(clear)
-                         if amt > 99:
-                             tm.numbers(amt - amt + 1, amt, colon= False)
-                         else:
-                            tm.number(amt)
+                         tm.number(amt)
                     sleep(0.8)
                     LCD.clear()
             else:
                 if dis < 16:
                     LCD.write(0,0, newVal)
                     updateVowelCounterWord(newVal, amt)
-                    sleep(1)
+                    sleep(3)
                     LCD.clear()
                 else:
                     LCD.write(0, 0, newVal[0:15] + "-")
                     LCD.write(1, 1, newVal[15:])
                     updateVowelCounterWord(newVal, amt)
-                    sleep(1)
+                    sleep(3)
                     LCD.clear()
-                    
         else:
             LCD.write(2, 0, "No vowels here")
             sleep(1)
             LCD.clear()
         
-        
+        LCD.clear()
+        LCD.write(0,0, "Write new data-")
+        LCD.write(1,1, "to card? y/n")
+        choice = input("")
+        if choice == "y":
+            writeToCard()
+        elif choice == "n":
+            LCD.clear()
+            LCD.write(0,0, "ok, continuing")
+            sleep(1)
+        else:
+            LCD.clear()
+            LCD.write(0,0, "invalid input")
+
 except KeyboardInterrupt:
     GPIO.cleanup()
     raise
