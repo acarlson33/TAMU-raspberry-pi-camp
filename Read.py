@@ -1,6 +1,6 @@
 ###########################################################
 #    Text scrolling, vowel detection and counting program # 
-#                     Written By: August C.              #                
+#                     Written By: August C.               #                
 ###########################################################
 
 # Imports
