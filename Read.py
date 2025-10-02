@@ -1,5 +1,5 @@
 ###########################################################
-#    Text scrolling, vowel detection and counting program   # 
+#    Text scrolling, vowel detection and counting program # 
 #                     Written By: August C.                             #
 ###########################################################
 
