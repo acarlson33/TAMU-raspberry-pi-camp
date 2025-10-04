@@ -16,4 +16,4 @@ Install instructions:
 
 You only need to install TM1637 with pip3:
 
-`pip3 install TM1637`
+`pip install python-tm1637`
